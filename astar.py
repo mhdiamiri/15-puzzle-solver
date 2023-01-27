@@ -1,7 +1,7 @@
 from node import *
 from heapdict import heapdict
 
-def a_star(node_start:Node) -> list or None:
+def a_star(node_start:Node, LIMIT=np.inf) -> list or None:
     frontier = heapdict()
     
     mapping = dict()
@@ -13,10 +13,10 @@ def a_star(node_start:Node) -> list or None:
     frontier[str(node_start)] = node_start.h() + 1
     
     g[str(node_start)] = 0
-    
+    limit = 0
     while len(frontier.heap) != 0:
         str_node_current, f_node_current = frontier.popitem()
-        
+        limit += 1
         node_current = mapping[str_node_current]
         
         if node_current.check():
@@ -44,5 +44,9 @@ def a_star(node_start:Node) -> list or None:
             node_successor.setParent( node_current)
             
         explored.add(str(node_current))
+        
+        if limit >= LIMIT:
+            print("Limit Reached!")
+            return None
         
     return None
