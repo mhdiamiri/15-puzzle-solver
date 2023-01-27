@@ -1,27 +1,23 @@
 from node import Node
 
-def HClimbing(startNode:Node):
-    currentNode = startNode
-    limit = 0
+def hill_climbing(start_node:Node):
+    current_node = start_node
+    
     path = []
-    while True:
-        successorsList = currentNode.successors()
-        min_successor = min_h2_finder(successorsList)
-        print('current state', str(currentNode))
-        if currentNode.h2() <= min_successor.h2():
-            return currentNode, path
-        else:
-            currentNode = min_successor
-            limit += 1
-        if limit == 1000: return currentNode, path
+    
+    while not current_node.check():
+        path.append(current_node)
+        successors = current_node.successors()
         
-        path.append(currentNode)
-
-def min_h2_finder(sList):
-    minWeight = 10**4
-    minNode = None
-    for successor in sList:
-        if successor.h2() <= minWeight:
-            minWeight = successor.h2()
-            minNode = successor
-    return minNode
+        changed = False
+        
+        for successor in successors:
+            
+            if successor.h() < current_node.h():
+                
+                current_node = successor
+                changed = True
+        
+        if not changed:
+            return path
+        
