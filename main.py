@@ -14,7 +14,7 @@ def random_initial_state():
     return Node(matrix)
 
 def using_hill_climbing(initial_state):
-    ans = hill_climbing.hill_climbing(initial_state)
+    ans = hill_climbing(initial_state)
     if not ans[-1].check():
         print("[hill climbing] No Answer Found!")
     else:
@@ -66,13 +66,42 @@ def make_gif(path, filename):
     print(f"GIF generated.\nfilename: {filename}.gif")
    
 def main():
-    matrix = np.reshape(np.zeros(16, dtype=int), (4, 4))
-    for i in range(4):
-        row = input(f"Please enter {i+1}'th row:").split(' ')
-        for j in range(4):
-            matrix[i][j] = int(row[j])
+    print("\33[2J\33[1;1H")
     
-    using_astar(Node(matrix))
-                 
+    print("choose from below:")
+    print("1. Use Random Initial State")
+    print("2. Enter Initial State")
+    answer = input()
+    
+    if answer == "1":
+        initial_state = random_initial_state()
+        
+    else:
+        print("\33[2J\33[1;1H")
+        matrix = np.reshape(np.zeros(16, dtype=int), (4, 4))
+        for i in range(4):
+            row = input(f"Please enter {i+1}'th row:").split(' ')
+            for j in range(4):
+                matrix[i][j] = int(row[j])
+        
+        initial_state = Node(matrix)
+    
+    print("\33[2J\33[1;1H")
+    print('initial state:\n', initial_state.matrix)
+    print("choose from below:")
+    print("1. Solve using A* algorithm")
+    print("2. Solve using Hill Climbing algorithm")
+    print("3. Solve using DFS algorithm")
+    answer = input()
+    if answer == "1":
+        print("Solving using A*...")
+        using_astar(initial_state)
+    elif answer == "2":
+        print("Solving using Hill Climbing...")
+        using_hill_climbing(initial_state)
+    else:
+        print("Solving using DFS...")
+        using_dfs(initial_state)
+
 if __name__ == '__main__':
     main()

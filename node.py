@@ -58,7 +58,6 @@ class Node:
     
     def check(self) -> bool:
         arr = np.reshape(self.matrix, (16, ))
-        print(arr)
         for i in range(16):
             if arr[i] != i: 
                 return False
@@ -98,30 +97,3 @@ class Node:
         for a in arr:
             string += str(a)
         return string
-    
-def test_case_3():
-    arr = np.arange(16)
-    np.random.shuffle(arr)
-    matrix =  arr.reshape(4,4)
-    node = Node(matrix)
-    print(node.check())
-    print(matrix)
-    print(node.h())
-    print(str(node))
-    return str(node)
-    
-def str2node(arr:str):
-    arr = arr.replace("[", "")
-    arr = arr.replace("]", " ")
-    arr2 = []
-
-    arr = arr.split(" ")
-    for s in arr:
-        if s!= '':
-            arr2.append(int(s))
-
-    matrix =  np.reshape(np.array(arr2), (4, 4))
-    
-    return Node(matrix)
-
-    

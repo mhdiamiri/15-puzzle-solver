@@ -10,8 +10,8 @@ fill_color = 'darkgray'
 empty = 'lightgray'
 
 def draw(matrix, caption):
-    width, height = 170, 190
-    textsize, numbersize = 10, 20
+    width, height = 340, 380
+    textsize, numbersize = 16, 40
     
     img = Image.new("RGB", (width, height), color = background_color)
     font = ImageFont.truetype(font_path, size=numbersize,)
@@ -19,12 +19,12 @@ def draw(matrix, caption):
 
     for i in range(4):
         for j in range(4):
-            shape = [(i * 40 + 5, j * 40 + 5) , ((i + 1) * 40 + 5, (j+1) * 40 + 5)]
+            shape = [(i * 80 + 10, j * 80 + 10) , ((i + 1) * 80 + 10, (j+1) * 80 + 10)]
             fill = fill_color
             if matrix[j][i] == 0: fill = empty
             draw.rectangle(shape, outline = outline, fill=fill)
             if matrix[j][i] != 0:
-                draw.multiline_text((i * 40 + 25, j * 40 + 35), str(matrix[j][i]),
+                draw.multiline_text((i * 80 + 50, j * 80 + 60), str(matrix[j][i]),
                                     fill=number_color, font=font, anchor="ms")
     
     font = ImageFont.truetype(font_path, size = textsize)
